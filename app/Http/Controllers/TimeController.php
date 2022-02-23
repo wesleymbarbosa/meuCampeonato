@@ -70,7 +70,7 @@ class TimeController extends Controller
             return TimeResource::make($time);
         }
 
-        return response()->json('Registro não encontrado', 404); 
+        return response()->json('Registro não encontrado', 404);
     }
 
     public function destroy(Time $time)

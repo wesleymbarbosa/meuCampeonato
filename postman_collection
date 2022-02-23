@@ -1,0 +1,215 @@
+{
+	"variables": [],
+	"info": {
+		"name": "MeuCampeonato",
+		"_postman_id": "208f0d70-e3c2-a8c7-c470-a3496fe594cd",
+		"description": "API MeuCampeonato",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Time List",
+			"request": {
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/time?filter[nome]=",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"time"
+					],
+					"query": [
+						{
+							"key": "filter[nome]",
+							"value": "",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Listar os times com opção de filtro via get."
+			},
+			"response": []
+		},
+		{
+			"name": "Time Cad",
+			"request": {
+				"url": "http://127.0.0.1:8000/api/time",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nome\": \"Arizona Cardinals\",\n\t\"sigla\": \"ARI\"\n}"
+				},
+				"description": "Criar novo time."
+			},
+			"response": []
+		},
+		{
+			"name": "Time Edit",
+			"request": {
+				"url": "http://127.0.0.1:8000/api/time/2",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nome\": \"Arizona Cardinals\",\n\t\"sigla\": \"ARI\",\n\t\"dt_cadastro\": \"2022-02-22 23:45\"\n}"
+				},
+				"description": "Atualizar time já existente."
+			},
+			"response": []
+		},
+		{
+			"name": "Time Get",
+			"request": {
+				"url": "http://127.0.0.1:8000/api/time/2",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Recuperar dados de um time."
+			},
+			"response": []
+		},
+		{
+			"name": "Time Del",
+			"request": {
+				"url": "http://127.0.0.1:8000/api/time/1",
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": "Excluir um time."
+			},
+			"response": []
+		},
+		{
+			"name": "Campeonato List",
+			"request": {
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/campeonato?filter[nome]=",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"campeonato"
+					],
+					"query": [
+						{
+							"key": "filter[nome]",
+							"value": "",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Listar os campeonatos com opção de filtro via get."
+			},
+			"response": []
+		},
+		{
+			"name": "Campeonato Cad",
+			"request": {
+				"url": "http://127.0.0.1:8000/api/campeonato",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nome\": \"NFL\"\n}"
+				},
+				"description": "Criar novo campeonato."
+			},
+			"response": []
+		},
+		{
+			"name": "Campeonato Edit",
+			"request": {
+				"url": "http://127.0.0.1:8000/api/campeonato/2",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nome\": \"NFL\",\n\t\"dt_cadastro\": \"2022-02-23 00:49\"\n}"
+				},
+				"description": "Atualizar camnpeonato já existente."
+			},
+			"response": []
+		},
+		{
+			"name": "Campeonato Get",
+			"request": {
+				"url": "http://127.0.0.1:8000/api/campeonato/2",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Recuper dados de um campeonato."
+			},
+			"response": []
+		},
+		{
+			"name": "Campeonato Del",
+			"request": {
+				"url": "http://127.0.0.1:8000/api/campeonato/1",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": "Excluir um camnpeonato."
+			},
+			"response": []
+		}
+	]
+}

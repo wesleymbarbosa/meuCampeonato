@@ -49,7 +49,7 @@ class CampeonatoController extends Controller
             return CampeonatoResource::make($campeonato);
         }
         
-        return response()->json('Registro não encontrado', 404); 
+        return response()->json('Registro não encontrado', 404);
     }
 
     public function update(Request $request, Campeonato $campeonato)
@@ -60,7 +60,7 @@ class CampeonatoController extends Controller
         ]);
 
         if($validator->fails()){
-            return response()->json($validator->errors());       
+            return response()->json($validator->errors());
         }
         
         if ($this->campeonato->find($campeonato->id)) {
