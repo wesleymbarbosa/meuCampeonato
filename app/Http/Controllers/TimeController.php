@@ -3,83 +3,76 @@
 namespace App\Http\Controllers;
 
 use App\Models\Time;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Validator;
+
+use App\Http\Resources\TimeResource;
 
 class TimeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    private $validator;
+
+    public function __construct(Time $time)
+    {
+        $this->time = $time;
+        $this->validator = Validator::class;
+    }
+
     public function index()
     {
-        //
+        $time = $this->time->included()
+            ->filter()
+            ->sort()
+            ->getOrPaginate();
+
+        return TimeResource::collection($time);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $validator = $this->validator::make($request->all(),[
+            'nome' => 'required|string|max:255',
+            'sigla' => 'unique:times',
+        ]);
+
+        if($validator->fails()){
+            return response()->json($validator->errors());       
+        }
+
+        $time = $this->time->create($request->all());
+        return $this->show($time->id);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Time  $time
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Time $time)
+    public function show($id)
     {
-        //
+        if ($time = $this->time->find($id)) {
+            return TimeResource::make($time);
+        }
+        
+        return response()->json('Registro não encontrado', 404); 
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Time  $time
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Time $time)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Time  $time
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Time $time)
     {
-        //
+        $validator = $this->validator::make($request->all(),[
+            'nome' => 'required|string|max:255',
+            'sigla' => 'unique:times,sigla,' . $time->id,
+            'dt_cadastro' => 'date',
+        ]);
+
+        if($validator->fails()){
+            return response()->json($validator->errors());       
+        }
+
+        $time->update($request->all());
+
+        return TimeResource::make($time);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Time  $time
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Time $time)
     {
-        //
+        $time->delete();
+        return TimeResource::make($time);
     }
 }

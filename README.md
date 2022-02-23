@@ -7,6 +7,7 @@ Simples API desenvolvida com php utilizando o framework Laravel 8 para o process
 ## Comandos a serem executados
 ```language
 git clone https://github.com/wesleymbarbosa/meuCampeonato.git
+cd .\meuCampeonato\
 composer install
 php artisan migrate
 php artisan serve
