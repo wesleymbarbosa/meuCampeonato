@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TimeController;
+use App\Http\Controllers\CampeonatoController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,3 +15,4 @@ use App\Http\Controllers\TimeController;
 */
 
 Route::apiResource('time', TimeController::class)->names('api.time');
+Route::apiResource('campeonato', CampeonatoController::class)->names('api.campeonato');

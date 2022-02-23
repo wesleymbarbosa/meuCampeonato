@@ -3,83 +3,80 @@
 namespace App\Http\Controllers;
 
 use App\Models\Campeonato;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Validator;
+
+use App\Http\Resources\CampeonatoResource;
 
 class CampeonatoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    private $validator;
+
+    public function __construct(Campeonato $campeonato)
+    {
+        $this->campeonato = $campeonato;
+        $this->validator = Validator::class;
+    }
+
     public function index()
     {
-        //
+        $campeonato = $this->campeonato->included()
+            ->filter()
+            ->sort()
+            ->getOrPaginate();
+
+        return CampeonatoResource::collection($campeonato);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $validator = $this->validator::make($request->all(),[
+            'nome' => 'required|string|max:255'
+        ]);
+
+        if($validator->fails()){
+            return response()->json($validator->errors());       
+        }
+
+        $campeonato = $this->campeonato->create($request->all());
+        return $this->show($campeonato->id);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Campeonato  $campeonato
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Campeonato $campeonato)
+    public function show($id)
     {
-        //
+        if ($campeonato = $this->campeonato->find($id)) {
+            return CampeonatoResource::make($campeonato);
+        }
+        
+        return response()->json('Registro não encontrado', 404); 
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Campeonato  $campeonato
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Campeonato $campeonato)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Campeonato  $campeonato
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Campeonato $campeonato)
     {
-        //
+        $validator = $this->validator::make($request->all(),[
+            'nome' => 'required|string|max:255',
+            'dt_cadastro' => 'date',
+        ]);
+
+        if($validator->fails()){
+            return response()->json($validator->errors());       
+        }
+        
+        if ($this->campeonato->find($campeonato->id)) {
+            $campeonato->update($request->all());
+            return CampeonatoResource::make($campeonato);
+        }
+
+        return response()->json('Registro não encontrado', 404); 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Campeonato  $campeonato
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Campeonato $campeonato)
     {
-        //
+        if($campeonato->delete()){
+            return response()->json('Registro excluído com sucesso', 200);
+        } else {
+            return response()->json('Registro não encontrado', 404); 
+        }
     }
 }

@@ -37,7 +37,7 @@ class TimeController extends Controller
         ]);
 
         if($validator->fails()){
-            return response()->json($validator->errors());       
+            return response()->json($validator->errors());
         }
 
         $time = $this->time->create($request->all());
@@ -50,7 +50,7 @@ class TimeController extends Controller
             return TimeResource::make($time);
         }
         
-        return response()->json('Registro não encontrado', 404); 
+        return response()->json('Registro não encontrado', 404);
     }
 
     public function update(Request $request, Time $time)
@@ -62,17 +62,23 @@ class TimeController extends Controller
         ]);
 
         if($validator->fails()){
-            return response()->json($validator->errors());       
+            return response()->json($validator->errors());
         }
 
-        $time->update($request->all());
+        if ($this->time->find($time->id)) {
+            $time->update($request->all());
+            return TimeResource::make($time);
+        }
 
-        return TimeResource::make($time);
+        return response()->json('Registro não encontrado', 404); 
     }
 
     public function destroy(Time $time)
     {
-        $time->delete();
-        return TimeResource::make($time);
+        if($time->delete()){
+            return response()->json('Registro excluído com sucesso', 200);
+        } else {
+            return response()->json('Registro não encontrado', 404); 
+        }
     }
 }
