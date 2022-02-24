@@ -18,4 +18,8 @@ class Time extends Model
     {
         return $this->hasMany(CampeonatoTime::class, 'id_time', 'id');
     }
+
+    public function sortTime($quantidade){
+        
+    }
 }

@@ -16,6 +16,7 @@ class CreateCampeonatosTable extends Migration
         Schema::create('campeonatos', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
+            $table->string('status')->nullable();
             $table->datetime('dt_cadastro')->useCurrent();
         });
     }
