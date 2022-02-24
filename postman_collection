@@ -55,7 +55,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"nome\": \"Arizona Cardinals\",\n\t\"sigla\": \"ARI\"\n}"
+					"raw": "{\n\t\"nome\": \"Carolina Panthers\",\n\t\"sigla\": \"CAR\"\n}"
 				},
 				"description": "Criar novo time."
 			},
@@ -64,7 +64,7 @@
 		{
 			"name": "Time Edit",
 			"request": {
-				"url": "http://127.0.0.1:8000/api/time/2",
+				"url": "http://127.0.0.1:8000/api/time/4",
 				"method": "PUT",
 				"header": [
 					{
@@ -75,7 +75,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"nome\": \"Arizona Cardinals\",\n\t\"sigla\": \"ARI\",\n\t\"dt_cadastro\": \"2022-02-22 23:45\"\n}"
+					"raw": "{\n\t\"nome\": \"Carolina Panthers\",\n\t\"sigla\": \"CAR\"\n}"
 				},
 				"description": "Atualizar time já existente."
 			},
@@ -183,7 +183,7 @@
 		{
 			"name": "Campeonato Get",
 			"request": {
-				"url": "http://127.0.0.1:8000/api/campeonato/2",
+				"url": "http://127.0.0.1:8000/api/campeonato/1",
 				"method": "GET",
 				"header": [],
 				"body": {},
@@ -208,6 +208,26 @@
 					"raw": ""
 				},
 				"description": "Excluir um camnpeonato."
+			},
+			"response": []
+		},
+		{
+			"name": "CampeonatoTime Cad",
+			"request": {
+				"url": "http://127.0.0.1:8000/api/campeonato_time",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id_campeonato\": 1,\n\t\"id_time\": 1\n}"
+				},
+				"description": "Adicionar time a um campeonato"
 			},
 			"response": []
 		}
