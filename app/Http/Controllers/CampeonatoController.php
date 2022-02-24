@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Campeonato;
+use App\Http\Resources\CampeonatoResource;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Validator;
-
-use App\Http\Resources\CampeonatoResource;
 
 class CampeonatoController extends Controller
 {
@@ -36,7 +35,7 @@ class CampeonatoController extends Controller
         ]);
 
         if($validator->fails()){
-            return response()->json($validator->errors());       
+            return response()->json($validator->errors(), 400);
         }
 
         $campeonato = $this->campeonato->create($request->all());
@@ -60,7 +59,7 @@ class CampeonatoController extends Controller
         ]);
 
         if($validator->fails()){
-            return response()->json($validator->errors());
+            return response()->json($validator->errors(), 400);
         }
         
         if ($this->campeonato->find($campeonato->id)) {
@@ -68,7 +67,7 @@ class CampeonatoController extends Controller
             return CampeonatoResource::make($campeonato);
         }
 
-        return response()->json('Registro não encontrado', 404); 
+        return response()->json('Registro não encontrado', 404);
     }
 
     public function destroy(Campeonato $campeonato)

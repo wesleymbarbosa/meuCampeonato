@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Time;
+use App\Http\Resources\TimeResource;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Validator;
-
-use App\Http\Resources\TimeResource;
 
 class TimeController extends Controller
 {
@@ -37,7 +36,7 @@ class TimeController extends Controller
         ]);
 
         if($validator->fails()){
-            return response()->json($validator->errors());
+            return response()->json($validator->errors(), 400);
         }
 
         $time = $this->time->create($request->all());
@@ -62,7 +61,7 @@ class TimeController extends Controller
         ]);
 
         if($validator->fails()){
-            return response()->json($validator->errors());
+            return response()->json($validator->errors(), 400);
         }
 
         if ($this->time->find($time->id)) {

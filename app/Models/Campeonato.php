@@ -13,4 +13,9 @@ class Campeonato extends Model
     protected $allowFilter = ['id', 'nome', 'dt_cadastro'];
     protected $allowSort = ['id', 'nome', 'dt_cadastro'];
     protected $fillable = ['nome', 'dt_cadastro'];
+
+    public function times()
+    {
+        return $this->hasMany(CampeonatoTime::class, 'id_campeonato', 'id');
+    }
 }
