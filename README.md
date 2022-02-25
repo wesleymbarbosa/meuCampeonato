@@ -3,7 +3,7 @@
 	<img src="https://logospng.org/download/laravel/logo-laravel-256.png" height="120">
 </p>
 Simples API desenvolvida com php utilizando o framework Laravel 8 para o processo de recrutamento Trade.
-
+<img src="https://i.ibb.co/Wz1zRq8/teste.jpg" height="400" />
 ## Comandos a serem executados
 ```language
 git clone https://github.com/wesleymbarbosa/meuCampeonato.git
