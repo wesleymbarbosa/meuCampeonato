@@ -46,17 +46,27 @@ class CampeonatoJogoController extends Controller
         }
     }
 
-    public function sorteio(Request $request)
+    public function sorteio($id)
     {
-        $validator = $this->validator::make($request->all(),[
-            'id_campeonato' => 'required|exists:campeonatos,id'
-        ]);
+        $campeonato = $this->campeonato->find($id)->first();
+        if(!isset($campeonato->id)){
+            return response()->json('Registro não encontrado', 404); 
+        }
+        
+        $request['id_campeonato'] = $id;
+        $sorteio = $this->campeonatoService->sortJogos($request);
+        $retorno = [
+            'id_campeonato' => $campeonato->id,
+            'nome_campeonato' => $campeonato->nome,
+        ];
 
-        if($validator->fails()){
-            return response()->json($validator->errors(), 400);
+        foreach ($sorteio as $key => $id_time) {
+            $time = $this->time->find($id_time)->first();
+            $retorno['finalistas'][$key] = $time->nome;
         }
 
-        $sorteio = $this->campeonatoService->sortJogos($request->all());
-        return $sorteio;
+        $retorno['jogos'] = $this->show($request['id_campeonato']);
+
+        return response()->json($retorno, 200);
     }
 }

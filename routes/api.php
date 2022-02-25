@@ -23,4 +23,4 @@ Route::get('campeonato_time/{id}', [CampeonatoTimeController::class, 'show']);
 Route::get('campeonato_time/classificacao/{id}', [CampeonatoTimeController::class, 'getClassificacao']);
 Route::delete('campeonato_time', [CampeonatoTimeController::class, 'destroy']);
 Route::get('campeonato_jogo/{id}', [CampeonatoJogoController::class, 'show']);
-Route::post('campeonato_jogo/sorteio', [CampeonatoJogoController::class, 'sorteio']);
+Route::get('campeonato_jogo/sorteio/{id}', [CampeonatoJogoController::class, 'sorteio']);

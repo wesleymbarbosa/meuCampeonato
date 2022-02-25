@@ -44,7 +44,7 @@ class CampeonatoController extends Controller
 
     public function show($id)
     {
-        if ($campeonato = $this->campeonato->find($id)) {
+        if ($campeonato = $this->campeonato->find($id)->first()) {
             return CampeonatoResource::make($campeonato);
         }
         

@@ -31,30 +31,35 @@ class CampeonatoService
 
     private function getPlacar()
     {
+        // TODO: Fazer em python
         return [
             'casa' => rand(0, 8),
             'fora' => rand(0, 8),
         ];
     }
 
-    private function getVencedor($jogo)
+    private function getResultado($jogo)
     {
-        $time = null;
+        $vencedor = null;
         if($jogo['placar_time_casa'] == $jogo['placar_time_fora']){
             $request = [
                 'id_campeonato' => $jogo['id_campeonato'],
                 'arr_times' => [$jogo['id_time_casa'], $jogo['id_time_fora']],
             ];
             $classificacao = $this->campeonatoTime->getClassificacao($request);
-            $time = $classificacao[0]->id_time;
+            $vencedor = $classificacao[0]->id_time;
         } else if($jogo['placar_time_casa'] > $jogo['placar_time_fora']){
-            $time = $jogo['id_time_casa'];
+            $vencedor = $jogo['id_time_casa'];
         } else if($jogo['placar_time_casa'] < $jogo['placar_time_fora']){
-            $time = $jogo['id_time_fora'];
+            $vencedor = $jogo['id_time_fora'];
         }
 
+        $perdedor = ($vencedor == $jogo['id_time_casa'] ? $jogo['placar_time_fora'] : $jogo['id_time_casa']);
+
+        //Atualiza pontuação dos times
         $this->attPontuacao($jogo);
-        return $time;
+
+        return ['vencedor' => $vencedor, 'perdedor' => $perdedor];
     }
 
     private function attPontuacao($jogo)
@@ -85,17 +90,54 @@ class CampeonatoService
         // Quartas de Final
         $sortRequest = [
             'id_campeonato' => $request['id_campeonato'],
-            'arr_times' => [],
+            'arr_times' => $arr_times,
         ];
         $sortTimes = $this->campeonatoTime->sortTimes($sortRequest);
         if(count($sortTimes) == 8){
-            $arr_times = $this->quartasFinal($request['id_campeonato'], $sortTimes);
+            $arr_times = $this->simulacao($request['id_campeonato'], 'Quartas-Final', $sortTimes);
         }
+
+        //Semi-Final
+        $sortRequest = [
+            'id_campeonato' => $request['id_campeonato'],
+            'arr_times' => $arr_times['vencedor'],
+        ];
+
+        $sortTimes = $this->campeonatoTime->sortTimes($sortRequest);
+        if(count($sortTimes) == 4){            
+            $arr_times = $this->simulacao($request['id_campeonato'], 'Semi-Final', $sortTimes);
+        }
+
+        //Terceiro-Lugar
+        $sortRequest = [
+            'id_campeonato' => $request['id_campeonato'],
+            'arr_times' => $arr_times['perdedor'],
+        ];
+        $sortTimes = $this->campeonatoTime->sortTimes($sortRequest);
+        if(count($sortTimes) == 2){
+            $terceiro = $this->simulacao($request['id_campeonato'], 'Terceiro-Lugar', $sortTimes);
+            $retorno[3] = $terceiro['vencedor'];
+        }
+
+        //Final
+        $sortRequest = [
+            'id_campeonato' => $request['id_campeonato'],
+            'arr_times' => $arr_times['vencedor'],
+        ];
+        $sortTimes = $this->campeonatoTime->sortTimes($sortRequest);
+        if(count($sortTimes) == 2){
+            $finalistas = $this->simulacao($request['id_campeonato'], 'Final', $sortTimes);
+            $retorno[1] = $finalistas['vencedor'];
+            $retorno[2] = $finalistas['perdedor'];
+        }
+
+        ksort($retorno);
+
         
-        return $arr_times;
+        return $retorno;
     }
 
-    private function quartasFinal($id_campeonato, $sortTimes = [])
+    private function simulacao($id_campeonato, $fase, $sortTimes = [])
     {
         $i = 0;
         $jogo = [];
@@ -114,10 +156,11 @@ class CampeonatoService
                     'id_time_fora'  => $time_fora,
                     'placar_time_casa'  => $placar['casa'],
                     'placar_time_fora'  => $placar['fora'],
-                    'fase' => 'Quartas-Final',
+                    'fase' => $fase,
                 ];
-                
-                $retorno['times'][] = $this->getVencedor($jogo);
+                $resultado = $this->getResultado($jogo);
+                $retorno['vencedor'][] = $resultado['vencedor'];
+                $retorno['perdedor'][] = $resultado['perdedor'];
                 $retorno['jogos'][] = $this->campeonatoJogo->create($jogo);
                 $i = 0;
             }
