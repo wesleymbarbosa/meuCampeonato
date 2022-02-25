@@ -1,15 +1,16 @@
 {
-	"variables": [],
 	"info": {
+		"_postman_id": "d833c866-fe44-413a-bf23-54b1032f1a59",
 		"name": "MeuCampeonato",
-		"_postman_id": "208f0d70-e3c2-a8c7-c470-a3496fe594cd",
 		"description": "API MeuCampeonato",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
 			"name": "Time List",
 			"request": {
+				"method": "GET",
+				"header": [],
 				"url": {
 					"raw": "http://127.0.0.1:8000/api/time?filter[nome]=",
 					"protocol": "http",
@@ -27,16 +28,10 @@
 					"query": [
 						{
 							"key": "filter[nome]",
-							"value": "",
-							"equals": true,
-							"description": ""
+							"value": ""
 						}
-					],
-					"variable": []
+					]
 				},
-				"method": "GET",
-				"header": [],
-				"body": {},
 				"description": "Listar os times com opção de filtro via get."
 			},
 			"response": []
@@ -44,18 +39,31 @@
 		{
 			"name": "Time Cad",
 			"request": {
-				"url": "http://127.0.0.1:8000/api/time",
 				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
-						"value": "application/json",
-						"description": ""
+						"value": "application/json"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"nome\": \"Carolina Panthers\",\n\t\"sigla\": \"CAR\"\n}"
+					"raw": "{\n\t\"nome\": \"Cleveland Browns\",\n\t\"sigla\": \"CLE\"\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/time",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"time"
+					]
 				},
 				"description": "Criar novo time."
 			},
@@ -64,18 +72,32 @@
 		{
 			"name": "Time Edit",
 			"request": {
-				"url": "http://127.0.0.1:8000/api/time/4",
 				"method": "PUT",
 				"header": [
 					{
 						"key": "Content-Type",
-						"value": "application/json",
-						"description": ""
+						"value": "application/json"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"nome\": \"Carolina Panthers\",\n\t\"sigla\": \"CAR\"\n}"
+					"raw": "{\n\t\"nome\": \"Chicago Bears\",\n\t\"sigla\": \"CHI\"\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/time/8",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"time",
+						"8"
+					]
 				},
 				"description": "Atualizar time já existente."
 			},
@@ -84,10 +106,24 @@
 		{
 			"name": "Time Get",
 			"request": {
-				"url": "http://127.0.0.1:8000/api/time/2",
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/time/2",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"time",
+						"2"
+					]
+				},
 				"description": "Recuperar dados de um time."
 			},
 			"response": []
@@ -95,12 +131,27 @@
 		{
 			"name": "Time Del",
 			"request": {
-				"url": "http://127.0.0.1:8000/api/time/1",
 				"method": "DELETE",
 				"header": [],
 				"body": {
 					"mode": "raw",
 					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/time/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"time",
+						"1"
+					]
 				},
 				"description": "Excluir um time."
 			},
@@ -109,6 +160,8 @@
 		{
 			"name": "Campeonato List",
 			"request": {
+				"method": "GET",
+				"header": [],
 				"url": {
 					"raw": "http://127.0.0.1:8000/api/campeonato?filter[nome]=",
 					"protocol": "http",
@@ -126,16 +179,10 @@
 					"query": [
 						{
 							"key": "filter[nome]",
-							"value": "",
-							"equals": true,
-							"description": ""
+							"value": ""
 						}
-					],
-					"variable": []
+					]
 				},
-				"method": "GET",
-				"header": [],
-				"body": {},
 				"description": "Listar os campeonatos com opção de filtro via get."
 			},
 			"response": []
@@ -143,18 +190,31 @@
 		{
 			"name": "Campeonato Cad",
 			"request": {
-				"url": "http://127.0.0.1:8000/api/campeonato",
 				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
-						"value": "application/json",
-						"description": ""
+						"value": "application/json"
 					}
 				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\n\t\"nome\": \"NFL\"\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/campeonato",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"campeonato"
+					]
 				},
 				"description": "Criar novo campeonato."
 			},
@@ -163,18 +223,32 @@
 		{
 			"name": "Campeonato Edit",
 			"request": {
-				"url": "http://127.0.0.1:8000/api/campeonato/2",
 				"method": "PUT",
 				"header": [
 					{
 						"key": "Content-Type",
-						"value": "application/json",
-						"description": ""
+						"value": "application/json"
 					}
 				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\n\t\"nome\": \"NFL\",\n\t\"dt_cadastro\": \"2022-02-23 00:49\"\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/campeonato/2",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"campeonato",
+						"2"
+					]
 				},
 				"description": "Atualizar camnpeonato já existente."
 			},
@@ -183,10 +257,24 @@
 		{
 			"name": "Campeonato Get",
 			"request": {
-				"url": "http://127.0.0.1:8000/api/campeonato/1",
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/campeonato/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"campeonato",
+						"1"
+					]
+				},
 				"description": "Recuper dados de um campeonato."
 			},
 			"response": []
@@ -194,18 +282,32 @@
 		{
 			"name": "Campeonato Del",
 			"request": {
-				"url": "http://127.0.0.1:8000/api/campeonato/1",
 				"method": "DELETE",
 				"header": [
 					{
 						"key": "Content-Type",
-						"value": "application/json",
-						"description": ""
+						"value": "application/json"
 					}
 				],
 				"body": {
 					"mode": "raw",
 					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/campeonato/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"campeonato",
+						"1"
+					]
 				},
 				"description": "Excluir um camnpeonato."
 			},
@@ -214,20 +316,183 @@
 		{
 			"name": "CampeonatoTime Cad",
 			"request": {
-				"url": "http://127.0.0.1:8000/api/campeonato_time",
 				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
-						"value": "application/json",
-						"description": ""
+						"value": "application/json"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"id_campeonato\": 1,\n\t\"id_time\": 1\n}"
+					"raw": "{\n\t\"id_campeonato\": 1,\n\t\"id_time\": 7\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/campeonato_time",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"campeonato_time"
+					]
 				},
 				"description": "Adicionar time a um campeonato"
+			},
+			"response": []
+		},
+		{
+			"name": "CampeonatoTime Get",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/campeonato_time/8",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"campeonato_time",
+						"8"
+					]
+				},
+				"description": "Recuperar um time de um campeonato"
+			},
+			"response": []
+		},
+		{
+			"name": "CampeonatoJogo Sort",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/campeonato_jogo/sorteio/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"campeonato_jogo",
+						"sorteio",
+						"1"
+					]
+				},
+				"description": "Sorteio simulação de um campeonato."
+			},
+			"response": []
+		},
+		{
+			"name": "CampeonatoJogo Get",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/campeonato_jogo/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"campeonato_jogo",
+						"1"
+					]
+				},
+				"description": "Listar jogos de um campeonato"
+			},
+			"response": []
+		},
+		{
+			"name": "CampeonatoTime Classificacao",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/campeonato_time/classificacao/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"campeonato_time",
+						"classificacao",
+						"1"
+					]
+				},
+				"description": "Lista classificação de um campeonato"
 			},
 			"response": []
 		}
