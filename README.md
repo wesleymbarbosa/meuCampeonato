@@ -6,7 +6,12 @@ Simples API desenvolvida com php utilizando o framework Laravel 8 para o process
 <p align="center">
 <img src="https://i.ibb.co/Wz1zRq8/teste.jpg" height="400" />
 </p>
+
+
+
 ## Comandos a serem executados
+
+
 ```language
 git clone https://github.com/wesleymbarbosa/meuCampeonato.git
 cd .\meuCampeonato\
@@ -14,6 +19,11 @@ composer install
 php artisan migrate
 php artisan serve
 ```
+
+
+## Importante
+
+Collection do Postman e script de carga inicial do banco de dados estão na raiz do projeto
 
 ## Créditos
 Wesley Maciel Barbosa
