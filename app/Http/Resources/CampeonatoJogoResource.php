@@ -6,7 +6,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use App\Models\Time;
 use App\Models\Campeonato;
 
-class CampeonatoTimeResource extends JsonResource
+class CampeonatoJogoResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -21,9 +21,12 @@ class CampeonatoTimeResource extends JsonResource
             'id_campeonato' => $this->id_campeonato,
             // 'campeonato' => Campeonato::find($this->id_campeonato),
             'id_time_casa' => $this->id_time_casa,
+            'placar_time_casa' => $this->placar_time_casa,
             'time_casa' => Time::find($this->id_time_casa),
             'id_time_fora' => $this->id_time_fora,
+            'placar_time_fora' => $this->placar_time_fora,
             'time_fora' => Time::find($this->id_time_fora),
+            'fase' => $this->fase,
             'dt_cadastro' => date('d/m/Y H:i:s', strtotime($this->dt_cadastro)),
         ];
     }

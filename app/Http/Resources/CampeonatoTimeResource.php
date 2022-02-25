@@ -22,6 +22,7 @@ class CampeonatoTimeResource extends JsonResource
             // 'campeonato' => Campeonato::find($this->id_campeonato),
             'id_time' => $this->id_time,
             'time' => Time::find($this->id_time),
+            'pontuacao' => $this->pontuacao,
             'dt_cadastro' => date('d/m/Y H:i:s', strtotime($this->dt_cadastro)),
         ];
     }

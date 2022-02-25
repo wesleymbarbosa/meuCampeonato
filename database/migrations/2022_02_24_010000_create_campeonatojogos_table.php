@@ -20,6 +20,7 @@ class CreateCampeonatoJogosTable extends Migration
             $table->unsignedBigInteger('id_time_fora');
             $table->integer('placar_time_casa')->nullable();
             $table->integer('placar_time_fora')->nullable();
+            $table->string('fase')->nullable();
             $table->datetime('dt_cadastro')->useCurrent();
         });
         

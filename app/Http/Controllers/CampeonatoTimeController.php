@@ -67,4 +67,17 @@ class CampeonatoTimeController extends Controller
             return response()->json('Registro não encontrado', 404); 
         }
     }
+
+    public function getClassificacao($id)
+    {
+        $request['id_campeonato'] = $id;
+        $classificacao = $this->campeonatoTime->getClassificacao($request);
+        $retorno = ['id_campeonato' => $id, 'data' => []];
+        for($i = 0; $i < count($classificacao); $i++){
+            $classificacao[$i]['posicao'] = $i+1;
+            $retorno['data'][] = $classificacao[$i];
+        }
+
+        return response()->json($retorno, 200);
+    }
 }
