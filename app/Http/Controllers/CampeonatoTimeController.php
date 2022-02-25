@@ -50,8 +50,8 @@ class CampeonatoTimeController extends Controller
 
     public function show($id)
     {
-        if ($campeonatoTime = $this->campeonatoTime->find($id)->first()) {
-            $campeonatoTime->time = $this->time->find($campeonatoTime->id_time)->first();
+        if ($campeonatoTime = $this->campeonatoTime->find($id)) {
+            $campeonatoTime->time = $this->time->find($campeonatoTime->id_time);
 
             return CampeonatoTimeResource::make($campeonatoTime);
         }

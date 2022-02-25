@@ -10,10 +10,10 @@ class Campeonato extends Model
 {
     use HasFactory, ApiTrait;
     public $timestamps = false;
-    protected $allowFilter = ['id', 'nome', 'status', 'dt_cadastro'];
-    protected $allowSort = ['id', 'nome', 'status', 'dt_cadastro'];
-    protected $fillable = ['nome', 'status', 'dt_cadastro'];
-
+    protected $allowFilter = ['id', 'nome', 'id_time_campeao', 'id_time_vice', 'id_time_terceiro', 'dt_cadastro'];
+    protected $allowSort = ['id', 'nome', 'id_time_campeao', 'id_time_vice', 'id_time_terceiro', 'dt_cadastro'];
+    protected $fillable = ['nome', 'id_time_campeao', 'id_time_vice', 'id_time_terceiro', 'dt_cadastro'];
+    
     public function times()
     {
         return $this->hasMany(CampeonatoTime::class, 'id_campeonato', 'id');

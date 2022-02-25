@@ -48,7 +48,7 @@ class CampeonatoJogoController extends Controller
 
     public function sorteio($id)
     {
-        $campeonato = $this->campeonato->find($id)->first();
+        $campeonato = $this->campeonato->find($id);
         if(!isset($campeonato->id)){
             return response()->json('Registro não encontrado', 404); 
         }
@@ -61,7 +61,7 @@ class CampeonatoJogoController extends Controller
         ];
 
         foreach ($sorteio as $key => $id_time) {
-            $time = $this->time->find($id_time)->first();
+            $time = $this->time->find($id_time);
             $retorno['finalistas'][$key] = $time->nome;
         }
 

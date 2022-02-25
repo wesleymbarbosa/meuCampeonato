@@ -54,7 +54,7 @@ class CampeonatoService
             $vencedor = $jogo['id_time_fora'];
         }
 
-        $perdedor = ($vencedor == $jogo['id_time_casa'] ? $jogo['placar_time_fora'] : $jogo['id_time_casa']);
+        $perdedor = ($vencedor == $jogo['id_time_casa'] ? $jogo['id_time_fora'] : $jogo['id_time_casa']);
 
         //Atualiza pontuação dos times
         $this->attPontuacao($jogo);
@@ -116,7 +116,7 @@ class CampeonatoService
         $sortTimes = $this->campeonatoTime->sortTimes($sortRequest);
         if(count($sortTimes) == 2){
             $terceiro = $this->simulacao($request['id_campeonato'], 'Terceiro-Lugar', $sortTimes);
-            $retorno[3] = $terceiro['vencedor'];
+            $retorno[3] = $terceiro['vencedor'][0];
         }
 
         //Final
@@ -127,13 +127,19 @@ class CampeonatoService
         $sortTimes = $this->campeonatoTime->sortTimes($sortRequest);
         if(count($sortTimes) == 2){
             $finalistas = $this->simulacao($request['id_campeonato'], 'Final', $sortTimes);
-            $retorno[1] = $finalistas['vencedor'];
-            $retorno[2] = $finalistas['perdedor'];
+            $retorno[1] = $finalistas['vencedor'][0];
+            $retorno[2] = $finalistas['perdedor'][0];
         }
 
         ksort($retorno);
+        //Salvar finalistas
+        $finalistas = [
+            'id_time_campeao' => $retorno[1],
+            'id_time_vice' => $retorno[2],
+            'id_time_terceiro' => $retorno[3],
+        ];
+        $this->campeonato->find($request['id_campeonato'])->update($finalistas);
 
-        
         return $retorno;
     }
 
@@ -159,13 +165,13 @@ class CampeonatoService
                     'fase' => $fase,
                 ];
                 $resultado = $this->getResultado($jogo);
+                
                 $retorno['vencedor'][] = $resultado['vencedor'];
                 $retorno['perdedor'][] = $resultado['perdedor'];
                 $retorno['jogos'][] = $this->campeonatoJogo->create($jogo);
                 $i = 0;
             }
         }
-    
         return $retorno;
     }
 }
